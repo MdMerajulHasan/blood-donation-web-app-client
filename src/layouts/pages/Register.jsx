@@ -3,11 +3,20 @@ import { useForm, useWatch } from "react-hook-form";
 import { FaUserAlt } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import useAuth from "../../hooks/useAuth";
+import axios from "axios";
+import useAxios from "../../hooks/useAxios";
 
 const Register = () => {
+  // getting registration function from firebase
+  const { registerUser, setUser, updateUser } = useAuth();
   const [districts, setDistricts] = useState([]);
   const [upazilas, setUpazilas] = useState([]);
+  const [upazilasInSelect, setUpazilasInSelect] = useState([]);
+
+  const navigate = useNavigate();
+  const axiosInstance = useAxios();
 
   useEffect(() => {
     fetch("/districts.json")
@@ -28,12 +37,81 @@ const Register = () => {
     formState: { errors },
   } = useForm();
 
+  // after selecting district in the form this will update every time
+  const district = useWatch({ control, name: "district" });
+  // tracking password to validate password is equal to retypedPassword
   const password = useWatch({ control, name: "password" });
 
+  // based on district making the list of the upazilas
+  useEffect(() => {
+    // getting the district data which is selected
+    const selectedDistrict = districts.filter((d) => d.name === district);
+
+    // taking the district id from district data
+    const districtId = selectedDistrict[0]?.id;
+
+    // getting the array of the upazila list
+    const newUpazilas = upazilas.filter((u) => u.district_id === districtId);
+
+    // updating upazilas in select
+    setUpazilasInSelect(newUpazilas);
+  }, [districts, district, upazilas]);
+
   const handleRegister = (data) => {
-    // const { email, name, photo, district, upazila, password, retypedPassword } =
-    // data;
-    console.log(data);
+    const { email, name, photo, password, bloodGroup, district, upazila } =
+      data;
+    // getting the image data from form
+    const profileImage = photo[0];
+
+    // registering user in firebase
+    registerUser(email, password)
+      .then((currentUser) => {
+        // storing the form data in FormData
+        const formData = new FormData();
+        formData.append("image", profileImage);
+
+        // image api url to upload image in imgBB
+        const image_API_Url = `https://api.imgbb.com/1/upload?key=${
+          import.meta.env.VITE_imagbb_api
+        }`;
+
+        // using axios uploading photo and getting url
+        axios.post(image_API_Url, formData).then((res) => {
+          // getting the url of uploaded photo
+          const imgBB_photo_Url = res.data.data.display_url;
+
+          // making userInfo object to store in database and giving data to firebase
+          const userInfo = {
+            name,
+            email,
+            photo: imgBB_photo_Url,
+            bloodGroup,
+            district,
+            upazila,
+          };
+
+          // saving data to database
+          axiosInstance
+            .post("/users", userInfo)
+            .then((res) => {
+              if (res.data.insertedId) {
+                alert("User Data Saved");
+              }
+            })
+            .catch((error) => {
+              alert(error.message);
+            });
+
+          // using function to update user in firebase
+          updateUser({ displayName: name, photoURL: imgBB_photo_Url })
+            .then(() => {
+              setUser(currentUser.user);
+              navigate("/");
+            })
+            .catch((error) => alert(error.message));
+        });
+      })
+      .catch((error) => alert(error.message));
   };
 
   return (
@@ -92,14 +170,9 @@ const Register = () => {
             <legend className="fieldset-legend">Photo</legend>
             <input
               type="file"
-              {...register("photo", { required: true })}
+              {...register("photo")}
               className="file-input w-full"
             />
-            {errors.photo?.type === "required" && (
-              <div className="validator-hint hidden text-xs font-bold">
-                Upload Photo
-              </div>
-            )}
           </div>
           {/* blood group select */}
           <div>
@@ -132,7 +205,7 @@ const Register = () => {
               ))}
             </select>
           </div>
-          {/* Sub-district select */}
+          {/* upazila select */}
           <div>
             <legend className="fieldset-legend">Upazila</legend>
             <select
@@ -140,7 +213,7 @@ const Register = () => {
               className="select appearance-none w-full"
             >
               <option value="">Select Your Upazila</option>
-              {upazilas.map((upazila) => (
+              {upazilasInSelect.map((upazila) => (
                 <option key={upazila.id}>{upazila.name}</option>
               ))}
             </select>

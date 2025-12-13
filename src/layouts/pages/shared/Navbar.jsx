@@ -1,9 +1,14 @@
 import React from "react";
 import Logo from "../../../components/Logo";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 import { GiPayMoney } from "react-icons/gi";
+import useAuth from "../../../hooks/useAuth";
+import { BiUserCircle } from "react-icons/bi";
 
 const Navbar = () => {
+  // getting user data from firebase
+  const { user, logoutUser } = useAuth();
+
   const links = (
     <>
       <NavLink
@@ -12,12 +17,14 @@ const Navbar = () => {
       >
         Donation Requests
       </NavLink>
-      <NavLink
-        to="/donate"
-        className="text-white lg:py-1 lg:w-52 border font-bold md:text-lg border-white rounded-md flex gap-2 justify-center items-center"
-      >
-        Donate Us <GiPayMoney className="lg:h-8 lg:w-8" />
-      </NavLink>
+      {user && (
+        <NavLink
+          to="/donate"
+          className="text-white lg:py-1 lg:w-52 border font-bold md:text-lg border-white rounded-md flex gap-2 justify-center items-center"
+        >
+          Donate Us <GiPayMoney className="lg:h-8 lg:w-8" />
+        </NavLink>
+      )}
     </>
   );
 
@@ -58,12 +65,45 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1 space-x-5">{links}</ul>
       </div>
       <div className="navbar-end">
-        <NavLink
-          to="/login"
-          className="text-white py-1 w-30 md:w-40 lg:w-52 bg-transparent border font-bold text-base md:text-lg border-white rounded-md text-center"
-        >
-          Login
-        </NavLink>
+        {user ? (
+          <div className="dropdown dropdown-end">
+            <div tabIndex={0} role="button" className="text-white">
+              {user.photoURL ? (
+                <img
+                  className=" w-8 md:w-15 h-8 md:h-15 rounded-full"
+                  src={user.photoURL}
+                  alt="user image"
+                />
+              ) : (
+                <BiUserCircle className="w-8 md:w-15 h-8 md:h-15"></BiUserCircle>
+              )}
+            </div>
+            <ul
+              tabIndex="-1"
+              className="dropdown-content menu space-y-1 bg-linear-to-br from-red-600 to-red-300 rounded-box z-1 w-30 md:w-52 lg:w-60 p-2 shadow-sm"
+            >
+              <Link
+                to="/dashboard"
+                className="text-white lg:py-1 lg:mx-auto lg:w-52 border font-bold md:text-lg border-white rounded-md text-center"
+              >
+                Dashboard
+              </Link>
+              <Link
+                onClick={logoutUser}
+                className="text-white lg:mx-auto lg:py-1 lg:w-52 border font-bold md:text-lg border-white rounded-md text-center"
+              >
+                Logout
+              </Link>
+            </ul>
+          </div>
+        ) : (
+          <NavLink
+            to="/login"
+            className="text-white py-1 w-30 md:w-40 lg:w-52 bg-transparent border font-bold text-base md:text-lg border-white rounded-md text-center"
+          >
+            Login
+          </NavLink>
+        )}
       </div>
     </div>
   );

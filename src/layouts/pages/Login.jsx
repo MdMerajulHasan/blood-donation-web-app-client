@@ -1,9 +1,24 @@
 import React from "react";
 import { MdOutlineEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
-import { Link } from "react-router";
+import { Link, Navigate, useNavigate } from "react-router";
+import useAuth from "../../hooks/useAuth";
+import { useForm } from "react-hook-form";
 
 const Login = () => {
+  const { signInUser, setUser } = useAuth();
+  const { register, handleSubmit } = useForm();
+  const navigate = useNavigate();
+
+  const handleLogin = (data) => {
+    signInUser(data.email, data.password)
+      .then((currentUser) => {
+        setUser(currentUser.user);
+        navigate("/");
+      })
+      .catch((error) => alert(error.message));
+  };
+
   return (
     <div className="flex flex-col-reverse md:flex-row gap-1 md:gap-5 justify-center items-start mt-2 md:mt-10 w-11/12 lg:w-4/5 mx-auto">
       <div className="w-11/12 mx-auto md:w-1/2">
@@ -17,6 +32,7 @@ const Login = () => {
               <MdOutlineEmail size={20} />
               <input
                 type="email"
+                {...register("email")}
                 className="w-full"
                 title="Give Email That You Have Given To Register"
                 placeholder="Give Your Mail"
@@ -33,6 +49,7 @@ const Login = () => {
               <RiLockPasswordFill />
               <input
                 type="password"
+                {...register("password")}
                 className="w-full"
                 required
                 placeholder="Type Your Password"
@@ -43,7 +60,10 @@ const Login = () => {
           <p className="text-violet-500 font-bold text-xs md:text-sm text-end w-full">
             <a href=""> Forgot Password?</a>
           </p>
-          <button className="bg-violet-500 text-base md:text-xl font-bold text-white py-1 md:py-2 w-full text-center rounded-md">
+          <button
+            onClick={handleSubmit(handleLogin)}
+            className="bg-violet-500 text-base md:text-xl font-bold text-white py-1 md:py-2 w-full text-center rounded-md"
+          >
             Login
           </button>
         </form>
