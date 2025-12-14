@@ -1,8 +1,12 @@
 import React from "react";
-import { AuthContext } from "../../contexts/AuthContext";
+import Banner from "../../components/Banner";
 
 const Home = () => {
-  return <div></div>;
+  return (
+    <div className="w-11/12 mx-auto">
+      <Banner></Banner>
+    </div>
+  );
 };
 
 export default Home;
