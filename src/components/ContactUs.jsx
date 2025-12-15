@@ -20,12 +20,12 @@ const ContactUs = () => {
               placeholder="Your name"
             />
             <legend className="fieldset-legend">Subject</legend>
-            <input
-              className="input w-full"
-              type="text"
-              name="company"
-              placeholder="Company name"
-            />
+            <select name="subject" className="select appearance-none w-full">
+              <option value="">Select Your Reason of Contact</option>
+              <option value="Donation">Donation Request</option>
+              <option value="Support">Support</option>
+              <option value="Other">Other</option>
+            </select>
             <legend className="fieldset-legend">Blood Group</legend>
             <select name="bloodGroup" className="select appearance-none w-full">
               <option value="">Select Your Blood Group</option>
