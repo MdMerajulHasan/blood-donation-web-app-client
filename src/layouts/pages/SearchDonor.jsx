@@ -45,7 +45,7 @@ const SearchDonor = () => {
   const handleSearch = (data) => {
     if (data) {
       axiosInstance
-        .get("/users", { params: data })
+        .get("/users-public", { params: data })
         .then((res) => {
           setDonors(res.data);
           setShow(true);
