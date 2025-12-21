@@ -24,7 +24,7 @@ const Dashboard = () => {
           <span className="hidden md:flex">Home</span>
         </Link>
         <Link
-          to="/dashboard/my-donation/requests"
+          to="/dashboard/my-donation-requests"
           className="flex items-center gap-0.5"
           title="My Donation Requests"
         >
