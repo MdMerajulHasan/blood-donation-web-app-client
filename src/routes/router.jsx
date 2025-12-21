@@ -10,6 +10,7 @@ import DashboardHome from "../layouts/pages/DashboardHome";
 import CreateDonationRequest from "../layouts/pages/CreateDonationRequest";
 import MyDonationRequests from "../layouts/pages/MyDonationRequests";
 import Profile from "../layouts/pages/Profile";
+import DonationRequests from "../layouts/pages/DonationRequests";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
     children: [
       { index: true, Component: Home },
       { path: "/search-donors", Component: SearchDonor },
+      {
+        path: "/donation-requests",
+        element: <DonationRequests></DonationRequests>,
+      },
     ],
   },
   { path: "/login", Component: Login },
