@@ -102,7 +102,7 @@ const Register = () => {
         .post("/users", userInfo)
         .then((res) => {
           if (res.data.insertedId) {
-            alert("User Data Saved");
+            alert("User Registered Successfully!");
           }
         })
         .catch((error) => {

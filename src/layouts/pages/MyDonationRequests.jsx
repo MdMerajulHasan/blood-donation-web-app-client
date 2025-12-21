@@ -22,7 +22,7 @@ const MyDonationRequests = () => {
   } else {
     return (
       <>
-        {allRequests.length > 0 && (
+        {allRequests.length > 0 ? (
           <div className="bg-base-100 w-11/12 mx-auto space-y-2 md:space-y-5 py-2 md:py-5 mt-5 md:mt-10 rounded-md">
             <h2 className="text-red-600 text-2xl md:text-4xl font-bold text-center">
               Your All Requests
@@ -70,6 +70,12 @@ const MyDonationRequests = () => {
                 </tbody>
               </table>
             </div>
+          </div>
+        ) : (
+          <div className="bg-base-100 w-11/12 mx-auto space-y-2 md:space-y-5 py-2 md:py-5 mt-5 md:mt-10 rounded-md">
+            <h2 className="text-red-600 text-2xl md:text-4xl font-bold text-center">
+              You Have No Request
+            </h2>
           </div>
         )}
       </>

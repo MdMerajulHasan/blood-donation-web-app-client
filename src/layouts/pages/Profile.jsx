@@ -54,7 +54,7 @@ const Profile = () => {
         <h2 className="text-red-600 text-2xl md:text-4xl font-bold text-center">
           Donor Profile
         </h2>
-        {userData?.photos ? (
+        {userData?.photo ? (
           <img
             className="w-16 md:w-32 h-16 md:h-32 rounded-full mx-auto border border-red-600"
             src={userData?.photo}
