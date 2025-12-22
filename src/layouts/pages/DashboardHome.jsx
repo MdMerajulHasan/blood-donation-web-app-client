@@ -15,6 +15,29 @@ const DashboardHome = () => {
   const { role, roleLoading } = useRole();
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
+
+  const { data: users = 0 } = useQuery({
+    queryKey: ["users-number"],
+    enabled: !roleLoading && role === "admin",
+    queryFn: async () => {
+      const res = await axiosSecure
+        .get(`/users-number?email=${user?.email}`)
+        .catch((err) => alert(err.message));
+      return res?.data;
+    },
+  });
+
+  const { data: requests = 0 } = useQuery({
+    queryKey: ["requests-number"],
+    enabled: !roleLoading && role === "admin",
+    queryFn: async () => {
+      const res = await axiosSecure
+        .get(`/requests-number?email=${user?.email}`)
+        .catch((err) => alert(err.message));
+      return res?.data;
+    },
+  });
+
   const {
     isLoading: my3ReqLoading,
     data: my3Req = [],
@@ -28,6 +51,7 @@ const DashboardHome = () => {
       return res.data;
     },
   });
+
   console.log(role);
   const handleStatus = (status, id) => {
     axiosSecure
@@ -155,6 +179,22 @@ const DashboardHome = () => {
                   ))}
                 </tbody>
               </table>
+            </div>
+          </div>
+        )}
+        {role === "admin" && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1 md:gap-5 text-red-600 font-bold text-center">
+            <div className="bg-base-100 rounded-md p-5">
+              <h2 className="text-2xl md:text-4xl">Total User</h2>
+              <p className="text-xl md:text-2xl">{users}</p>
+            </div>
+            <div className="bg-base-100 rounded-md p-5">
+              <h2 className="text-2xl md:text-4xl">Total Funding</h2>
+              <p className="text-xl md:text-2xl">0</p>
+            </div>
+            <div className="bg-base-100 rounded-md p-5">
+              <h2 className="text-2xl md:text-4xl">Total Request</h2>
+              <p className="text-xl md:text-2xl">{requests}</p>
             </div>
           </div>
         )}
