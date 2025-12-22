@@ -5,10 +5,18 @@ import Loading from "../../components/Loading";
 import { CgDetailsMore } from "react-icons/cg";
 import { RiDeleteBinFill } from "react-icons/ri";
 import { FaEdit } from "react-icons/fa";
+import useAuth from "../../hooks/useAuth";
+import { Link, useNavigate } from "react-router";
 
 const MyDonationRequests = () => {
+  const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const { isLoading: allRequestsLoading, data: allRequests = [] } = useQuery({
+  const navigate = useNavigate();
+  const {
+    isLoading: allRequestsLoading,
+    data: allRequests = [],
+    refetch,
+  } = useQuery({
     queryKey: ["all-own-donation-requests"],
     queryFn: async () => {
       const result = await axiosSecure
@@ -17,6 +25,20 @@ const MyDonationRequests = () => {
       return result.data;
     },
   });
+
+  const handleStatus = (status, id) => {
+    axiosSecure
+      .patch(`/update/${id}/progress?email=${user?.email}`, {
+        status,
+      })
+      .then((res) => {
+        if (res.data.modifiedCount) {
+          refetch();
+          navigate("/dashboard/my-donation-requests");
+        }
+      });
+  };
+
   if (allRequestsLoading) {
     return <Loading></Loading>;
   } else {
@@ -51,12 +73,50 @@ const MyDonationRequests = () => {
                       <td>{r.donationDate}</td>
                       <td>{r.donationTime}</td>
                       <td>{r.bloodGroup}</td>
-                      <td>{r.donationStatus}</td>
+                      <td className="flex gap-1 justify-center items-center">
+                        {r.donationStatus === "done" && (
+                          <p className="text-white bg-green-600 p-1 rounded-sm">
+                            {r.donationStatus}
+                          </p>
+                        )}
+                        {r.donationStatus === "pending" && (
+                          <>{r.donationStatus}</>
+                        )}
+                        {r.donationStatus === "canceled" && (
+                          <p className="text-white bg-red-600 p-1 rounded-sm">
+                            {r.donationStatus}
+                          </p>
+                        )}
+                        {r.donationStatus === "inprogress" && (
+                          <>
+                            <button
+                              onClick={() => handleStatus("done", r._id)}
+                              title="Done"
+                              className="bg-green-600 p-1 rounded-sm text-white"
+                            >
+                              Done
+                            </button>
+                            <button
+                              onClick={() => handleStatus("canceled", r._id)}
+                              title="Cancel"
+                              className="bg-red-600 p-1 rounded-sm text-white"
+                            >
+                              Cancel
+                            </button>
+                            <div className="text-start">
+                              <p>{r.donorName}</p>
+                              <p>{r.donorEmail}</p>
+                            </div>
+                          </>
+                        )}
+                      </td>
                       <td>
                         <div className="flex gap-0.5 lg:gap-2 justify-center items-center">
-                          <span>
-                            <FaEdit />
-                          </span>
+                          <Link to={`/dashboard/update/${r._id}`}>
+                            <span>
+                              <FaEdit />
+                            </span>
+                          </Link>
                           <span>
                             <RiDeleteBinFill />
                           </span>

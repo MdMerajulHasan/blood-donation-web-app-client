@@ -12,10 +12,10 @@ const Request = () => {
   const [request, setRequest] = useState([]);
   useEffect(() => {
     axiosSecure
-      .get(`/request/${id}/details`)
+      .get(`/request/${id}/details?email=${user?.email}`)
       .then((res) => setRequest(res.data))
       .catch((err) => alert(err.message));
-  }, [id, axiosSecure]);
+  }, [id, axiosSecure, user]);
 
   const handleDonate = (id) => {
     Swal.fire({

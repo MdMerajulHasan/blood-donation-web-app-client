@@ -12,6 +12,7 @@ import MyDonationRequests from "../layouts/pages/MyDonationRequests";
 import Profile from "../layouts/pages/Profile";
 import DonationRequests from "../layouts/pages/DonationRequests";
 import Request from "../layouts/pages/Request";
+import Update from "../layouts/pages/Update";
 
 const router = createBrowserRouter([
   {
@@ -56,6 +57,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/profile",
         element: <Profile></Profile>,
+      },
+      {
+        path: "/dashboard/update/:id",
+        element: <Update></Update>,
       },
     ],
   },

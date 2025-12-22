@@ -30,9 +30,7 @@ const AuthProvider = ({ children }) => {
 
   //   function to logout user
   const logoutUser = () => {
-    return signOut(auth).then(() => {
-      alert("User Logged Out!");
-    });
+    return signOut(auth);
   };
 
   //  monitor and get currently signed in user
