@@ -296,7 +296,7 @@ const Register = () => {
         </h2>
         <img
           className="h-[140px] md:h-[250px] lg:w-[400px] mx-auto"
-          src="/src/assets/blood_donation_auth_image.jpeg"
+          src={authImage}
           alt="auth image"
         />
       </div>

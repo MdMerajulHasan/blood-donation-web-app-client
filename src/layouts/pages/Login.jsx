@@ -4,6 +4,7 @@ import { RiLockPasswordFill } from "react-icons/ri";
 import { Link, Navigate, useLocation, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import { useForm } from "react-hook-form";
+import authImage2 from "../../assets/blood_donation_auth_image.jpeg";
 
 const Login = () => {
   const { signInUser, setUser } = useAuth();
@@ -85,7 +86,7 @@ const Login = () => {
         </h2>
         <img
           className="h-[140px] md:h-[250px] md:w-[400px] mx-auto"
-          src="/src/assets/blood_donation_auth_image.jpeg"
+          src={authImage2}
           alt="auth image"
         />
       </div>
