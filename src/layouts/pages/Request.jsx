@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import useAuth from "../../hooks/useAuth";
 
 const Request = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
+  const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [request, setRequest] = useState([]);
   useEffect(() => {
@@ -15,24 +18,39 @@ const Request = () => {
   }, [id, axiosSecure]);
 
   const handleDonate = (id) => {
-    console.log(id);
     Swal.fire({
-  title: "Are you sure?",
-  text: "You won't be able to revert this!",
-  icon: "warning",
-  showCancelButton: true,
-  confirmButtonColor: "#3085d6",
-  cancelButtonColor: "#d33",
-  confirmButtonText: "Yes, delete it!"
-}).then((result) => {
-  if (result.isConfirmed) {
-    Swal.fire({
-      title: "Deleted!",
-      text: "Your file has been deleted.",
-      icon: "success"
+      title: "Are you sure?",
+      html: `<div style="text-align:left">
+  <label style="display:flex">Donor Name</label>
+  <input readonly style="background-color: #FCA5A5; padding: 2px; border-radius: 4px" type="text" value=${user?.displayName}/>
+  <label style="display:flex">Donor Email</label>
+  <input readonly style="background-color: #FCA5A5; padding: 2px; border-radius: 4px" type="email" value=${user?.email}/>
+  </div>`,
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, donate!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure
+          .patch(`/update/${id}/`, {
+            donorName: user?.displayName,
+            donorEmail: user?.email,
+          })
+          .then((res) => {
+            if (res.data.modifiedCount) {
+              Swal.fire({
+                title: "Confirmed!",
+                text: "Your donation inprogress",
+                icon: "success",
+              });
+              navigate("/donation-requests")
+            }
+          })
+          .catch((error) => alert(error.message));
+      }
     });
-  }
-});
   };
 
   return (
@@ -41,7 +59,7 @@ const Request = () => {
         Request Details
       </h2>
       <div className="overflow-x-auto bg-white w-11/12 mx-auto">
-        <table className="table table-zebra text-[10px] md:text-base text-center">
+        <table className="table table-zebra table-xs table-pin-rows table-pin-cols text-[10px] md:text-base text-center">
           {/* head */}
           <tbody>
             <tr>
@@ -81,6 +99,10 @@ const Request = () => {
             <tr>
               <th className="text-[#00000099] text-left">Donation Time</th>
               <td className="text-left">{request.donationTime}</td>
+            </tr>
+            <tr>
+              <th className="text-[#00000099] text-left">Donation Message</th>
+              <td className="text-left">{request.donationMessage}</td>
             </tr>
             <tr>
               <th className="text-[#00000099] text-left">Action</th>
