@@ -26,7 +26,7 @@ const DashboardHome = () => {
   } else {
     return (
       <div>
-        <div className="text-red-600 text-4xl font-bold text-center my-5 md:my-10">
+        <div className="text-red-600 md:text-4xl font-bold text-center my-5 md:my-10">
           <Typewriter
             words={[`Welcome ${user.displayName}`]}
             loop
@@ -39,7 +39,7 @@ const DashboardHome = () => {
               Recent requests
             </h2>
             <div className="overflow-x-auto bg-white w-11/12 mx-auto">
-              <table className="table table-zebra text-[10px] md:text-base text-center">
+              <table className="table table-zebra table-xs table-pin-rows table-pin-cols text-[10px] md:text-base text-center">
                 {/* head */}
                 <thead>
                   <tr>

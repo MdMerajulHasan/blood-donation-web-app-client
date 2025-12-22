@@ -20,7 +20,7 @@ const DonationRequests = () => {
             Pending Requests
           </h2>
           <div className="overflow-x-auto bg-white w-11/12 mx-auto">
-            <table className="table table-zebra text-[10px] md:text-base text-center">
+            <table className="table table-zebra table-xs table-pin-rows table-pin-cols text-[10px] md:text-base text-center">
               {/* head */}
               <thead>
                 <tr>
@@ -43,7 +43,7 @@ const DonationRequests = () => {
                     <td>{r.donationDate}</td>
                     <td>{r.donationTime}</td>
                     <td>
-                      <Link to={`/request/:${r._id}`} className="flex gap-0.5 lg:gap-2 justify-center items-center">
+                      <Link to={`/request/${r._id}`} className="flex gap-0.5 lg:gap-2 justify-center items-center">
                         <span>view</span>
                         <span>
                           <CgDetailsMore />

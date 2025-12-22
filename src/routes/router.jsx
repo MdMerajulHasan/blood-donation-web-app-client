@@ -11,6 +11,7 @@ import CreateDonationRequest from "../layouts/pages/CreateDonationRequest";
 import MyDonationRequests from "../layouts/pages/MyDonationRequests";
 import Profile from "../layouts/pages/Profile";
 import DonationRequests from "../layouts/pages/DonationRequests";
+import Request from "../layouts/pages/Request";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,14 @@ const router = createBrowserRouter([
       {
         path: "/donation-requests",
         element: <DonationRequests></DonationRequests>,
+      },
+      {
+        path: "/request/:id",
+        element: (
+          <PrivateRoute>
+            <Request></Request>,
+          </PrivateRoute>
+        ),
       },
     ],
   },

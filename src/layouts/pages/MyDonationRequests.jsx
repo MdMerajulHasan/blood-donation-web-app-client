@@ -28,7 +28,7 @@ const MyDonationRequests = () => {
               Your All Requests
             </h2>
             <div className="overflow-x-auto bg-white w-11/12 mx-auto">
-              <table className="table table-zebra text-[10px] md:text-base text-center">
+              <table className="table table-zebra table-xs table-pin-rows table-pin-cols text-[10px] md:text-base text-center">
                 {/* head */}
                 <thead>
                   <tr>
