@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useState } from "react";
+import React from "react";
 import Loading from "../../components/Loading";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
@@ -10,7 +10,6 @@ import { useNavigate } from "react-router";
 const Users = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const [filterStatus, setFilterStatus] = useState();
   const navigate = useNavigate();
 
   const {
@@ -21,7 +20,7 @@ const Users = () => {
     queryKey: ["all-users-data"],
     queryFn: async () => {
       const res = await axiosSecure
-        .get(`/all-users-data?email=${user?.email}&status=${filterStatus}`)
+        .get(`/all-users-data?email=${user?.email}`)
         .catch((error) => alert(error.message));
       return res.data;
     },
@@ -56,6 +55,23 @@ const Users = () => {
     });
   };
 
+  const handleRole = (role, email) => {
+    axiosSecure
+      .patch(`/user/${email}/update?email=${user?.email}&role=${role}`)
+      .then((res) => {
+        if (res.data.modifiedCount) {
+          navigate("/dashboard/all-users");
+          refetch();
+          Swal.fire({
+            title: "Updated Role",
+            text: `Successfully updated role!`,
+            icon: "success",
+          });
+        }
+      })
+      .catch((err) => alert(err.message));
+  };
+
   if (allUsersLoading) {
     return <Loading></Loading>;
   }
@@ -74,7 +90,7 @@ const Users = () => {
               <th>Name</th>
               <th>Role</th>
               <th>Change Status</th>
-              <th>Manage Role</th>
+              <th>Make User</th>
             </tr>
           </thead>
           <tbody>
@@ -115,8 +131,63 @@ const Users = () => {
                     </button>
                   )}
                 </td>
-                <td className="flex gap-1 justify-center items-center">
-                  {r.role}
+                <td>
+                  <span className="flex gap-1 justify-center items-center">
+                    {r.role === "donor" && (
+                      <>
+                        <button
+                          onClick={() => handleRole("volunteer", r.email)}
+                          title="Volunteer"
+                          className="bg-green-600 p-1 rounded-sm text-white"
+                        >
+                          Volunteer
+                        </button>
+                        <button
+                          onClick={() => handleRole("admin", r.email)}
+                          title="Admin"
+                          className="bg-purple-600 p-1 rounded-sm text-white"
+                        >
+                          Admin
+                        </button>
+                      </>
+                    )}
+                    {r.role === "volunteer" && (
+                      <>
+                        <button
+                          onClick={() => handleRole("donor", r.email)}
+                          title="Donor"
+                          className="bg-yellow-600 p-1 rounded-sm text-white"
+                        >
+                          Donor
+                        </button>
+                        <button
+                          onClick={() => handleRole("admin", r.email)}
+                          title="Admin"
+                          className="bg-purple-600 p-1 rounded-sm text-white"
+                        >
+                          Admin
+                        </button>
+                      </>
+                    )}
+                    {r.role === "admin" && (
+                      <>
+                        <button
+                          onClick={() => handleRole("donor", r.email)}
+                          title="Donor"
+                          className="bg-yellow-600 p-1 rounded-sm text-white"
+                        >
+                          Donor
+                        </button>
+                        <button
+                          onClick={() => handleRole("volunteer", r.email)}
+                          title="Volunteer"
+                          className="bg-green-600 p-1 rounded-sm text-white"
+                        >
+                          Volunteer
+                        </button>
+                      </>
+                    )}
+                  </span>
                 </td>
               </tr>
             ))}
