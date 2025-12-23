@@ -4,13 +4,20 @@ import Loading from "../../components/Loading";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
 import { FaUser } from "react-icons/fa";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router";
 
 const Users = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [filterStatus, setFilterStatus] = useState();
+  const navigate = useNavigate();
 
-  const { isLoading: allUsersLoading, data: usersData = [] } = useQuery({
+  const {
+    isLoading: allUsersLoading,
+    data: usersData = [],
+    refetch,
+  } = useQuery({
     queryKey: ["all-users-data"],
     queryFn: async () => {
       const res = await axiosSecure
@@ -19,6 +26,35 @@ const Users = () => {
       return res.data;
     },
   });
+
+  const handleStatus = (status, email) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: `Do You Want to ${status} the user?`,
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, do it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure
+          .patch(`/user/${email}?email=${user?.email}&status=${status}`)
+          .then((res) => {
+            if (res.data.modifiedCount) {
+              navigate("/dashboard/all-users");
+              refetch();
+              Swal.fire({
+                title: `${status}`,
+                text: `Successfully ${status} user!`,
+                icon: "success",
+              });
+            }
+          })
+          .catch((err) => alert(err.message));
+      }
+    });
+  };
 
   if (allUsersLoading) {
     return <Loading></Loading>;
@@ -37,7 +73,7 @@ const Users = () => {
               <th>Email</th>
               <th>Name</th>
               <th>Role</th>
-              <th>Status</th>
+              <th>Change Status</th>
               <th>Manage Role</th>
             </tr>
           </thead>
@@ -60,7 +96,25 @@ const Users = () => {
                 <td>{r.email}</td>
                 <td>{r.name}</td>
                 <td>{r.role}</td>
-                <td>{r.status}</td>
+                <td>
+                  {r.status === "active" ? (
+                    <button
+                      onClick={() => handleStatus("blocked", r.email)}
+                      title="block"
+                      className="bg-red-600 p-1 rounded-sm text-white"
+                    >
+                      block
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => handleStatus("active", r.email)}
+                      title="Done"
+                      className="bg-green-600 p-1 rounded-sm text-white"
+                    >
+                      unblock
+                    </button>
+                  )}
+                </td>
                 <td className="flex gap-1 justify-center items-center">
                   {r.role}
                 </td>
