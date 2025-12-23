@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { Link, useNavigate } from "react-router";
@@ -7,9 +7,12 @@ import Loading from "../../components/Loading";
 import { FaEdit } from "react-icons/fa";
 import { RiDeleteBinFill } from "react-icons/ri";
 import { CgDetailsMore } from "react-icons/cg";
+import useRole from "../../hooks/useRole";
 
 const AllDonationRequests = () => {
   const { user } = useAuth();
+  const { role } = useRole();
+  const [status, setStatus] = useState("");
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
 
@@ -18,14 +21,19 @@ const AllDonationRequests = () => {
     data: allRequestsAdmin = [],
     refetch,
   } = useQuery({
-    queryKey: ["all-donation-requests-admin"],
+    queryKey: ["all-donation-requests-admin", status],
     queryFn: async () => {
       const result = await axiosSecure
-        .get(`/all-donation-requests?email=${user?.email}`)
+        .get(`/all-donation-requests?email=${user?.email}&status=${status}`)
         .catch((error) => alert(error.message));
       return result.data;
     },
   });
+
+  const handleFilter = (value) => {
+    setStatus(value);
+    refetch();
+  };
 
   const handleStatus = (status, id) => {
     axiosSecure
@@ -58,11 +66,22 @@ const AllDonationRequests = () => {
   } else {
     return (
       <>
-        {allRequestsAdmin.length > 0 ? (
-          <div className="bg-base-100 w-11/12 mx-auto space-y-2 md:space-y-5 py-2 md:py-5 mt-5 md:mt-10 rounded-md">
-            <h2 className="text-red-600 text-2xl md:text-4xl font-bold text-center">
-              All Requests({allRequestsAdmin.length})
-            </h2>
+        <div className="bg-base-100 w-11/12 mx-auto space-y-2 md:space-y-5 py-2 md:py-5 mt-5 md:mt-10 rounded-md">
+          <h2 className="text-red-600 text-2xl md:text-4xl font-bold text-center">
+            All Requests({allRequestsAdmin.length})
+          </h2>
+          <select
+            className="select"
+            value={status}
+            onChange={(e) => handleFilter(e.target.value)}
+          >
+            <option value="">Filter </option>
+            <option value="pending">Pending</option>
+            <option value="inprogress">Inprogress</option>
+            <option value="done">Done</option>
+            <option value="canceled">Cancel</option>
+          </select>
+          {allRequestsAdmin.length > 0 ? (
             <div className="overflow-x-auto bg-white w-11/12 mx-auto">
               <table className="table table-zebra table-xs table-pin-rows table-pin-cols text-[10px] md:text-base text-center">
                 {/* head */}
@@ -126,16 +145,20 @@ const AllDonationRequests = () => {
                       </td>
                       <td>
                         <div className="flex gap-0.5 lg:gap-2 justify-center items-center">
-                          <Link to={`/dashboard/update/${r._id}`}>
-                            <span>
-                              <FaEdit />
-                            </span>
-                          </Link>
-                          <button onClick={() => handleDelete(r._id)}>
-                            <span>
-                              <RiDeleteBinFill />
-                            </span>
-                          </button>
+                          {role === "admin" && (
+                            <>
+                              <Link to={`/dashboard/update/${r._id}`}>
+                                <span>
+                                  <FaEdit />
+                                </span>
+                              </Link>
+                              <button onClick={() => handleDelete(r._id)}>
+                                <span>
+                                  <RiDeleteBinFill />
+                                </span>
+                              </button>
+                            </>
+                          )}
                           <Link to={`/request/${r._id}`}>
                             <span>
                               <CgDetailsMore />
@@ -148,14 +171,14 @@ const AllDonationRequests = () => {
                 </tbody>
               </table>
             </div>
-          </div>
-        ) : (
-          <div className="bg-base-100 w-11/12 mx-auto space-y-2 md:space-y-5 py-2 md:py-5 mt-5 md:mt-10 rounded-md">
-            <h2 className="text-red-600 text-2xl md:text-4xl font-bold text-center">
-              No Request Created Yet
-            </h2>
-          </div>
-        )}
+          ) : (
+            <div className="bg-base-100 w-11/12 mx-auto space-y-2 md:space-y-5 py-2 md:py-5 mt-5 md:mt-10 rounded-md">
+              <h2 className="text-red-600 text-2xl md:text-4xl font-bold text-center">
+                No Request
+              </h2>
+            </div>
+          )}
+        </div>
       </>
     );
   }

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useState } from "react";
 import Loading from "../../components/Loading";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
@@ -11,16 +11,17 @@ const Users = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
+  const [status, setStatus] = useState("");
 
   const {
     isLoading: allUsersLoading,
     data: usersData = [],
     refetch,
   } = useQuery({
-    queryKey: ["all-users-data"],
+    queryKey: ["all-users-data", status],
     queryFn: async () => {
       const res = await axiosSecure
-        .get(`/all-users-data?email=${user?.email}`)
+        .get(`/all-users-data?email=${user?.email}&status=${status}`)
         .catch((error) => alert(error.message));
       return res.data;
     },
@@ -55,6 +56,11 @@ const Users = () => {
     });
   };
 
+  const handleFilter = (value) => {
+    setStatus(value);
+    refetch();
+  };
+
   const handleRole = (role, email) => {
     axiosSecure
       .patch(`/user/${email}/update?email=${user?.email}&role=${role}`)
@@ -80,6 +86,15 @@ const Users = () => {
       <h2 className="text-red-600 text-2xl md:text-4xl font-bold text-center">
         All Users
       </h2>
+      <select
+        className="select"
+        value={status}
+        onChange={(e) => handleFilter(e.target.value)}
+      >
+        <option value="">Filter </option>
+        <option value="active">Active</option>
+        <option value="blocked">Blocked</option>
+      </select>
       <div className="overflow-x-auto bg-white w-11/12 mx-auto">
         <table className="table table-zebra table-xs table-pin-rows table-pin-cols text-[10px] md:text-base text-center">
           {/* head */}

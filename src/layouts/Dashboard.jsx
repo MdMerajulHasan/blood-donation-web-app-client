@@ -75,6 +75,18 @@ const Dashboard = () => {
             </Link>
           </>
         )}
+        {role === "volunteer" && (
+          <>
+            <Link
+              to="/dashboard/all-blood-donation-request"
+              className="flex items-center justify-center md:justify-start gap-0.5"
+              title="All Requests"
+            >
+              <BiSolidDonateBlood size={25} />
+              <span className="hidden md:flex">Requests</span>
+            </Link>
+          </>
+        )}
       </div>
       <div className="col-span-10 lg:col-span-11 bg-base-200">
         <Outlet></Outlet>

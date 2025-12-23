@@ -10,7 +10,7 @@ const VolunteerRoutes = ({ children }) => {
     return <Loading></Loading>;
   }
 
-  if (role !== "volunteer") {
+  if (role !== "volunteer" && role !== "admin") {
     return <Forbidden></Forbidden>;
   }
   return children;
