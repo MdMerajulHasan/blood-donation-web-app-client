@@ -15,6 +15,8 @@ import Request from "../layouts/pages/Request";
 import Update from "../layouts/pages/Update";
 import Error404 from "../layouts/pages/Error404";
 import Users from "../layouts/pages/Users";
+import AdminRoutes from "./AdminRoutes";
+import DonorRoutes from "./DonorRoutes";
 
 const router = createBrowserRouter([
   {
@@ -52,11 +54,19 @@ const router = createBrowserRouter([
       { path: "/dashboard", element: <DashboardHome></DashboardHome> },
       {
         path: "/dashboard/create-donation-request",
-        element: <CreateDonationRequest></CreateDonationRequest>,
+        element: (
+          <DonorRoutes>
+            <CreateDonationRequest></CreateDonationRequest>,
+          </DonorRoutes>
+        ),
       },
       {
         path: "/dashboard/my-donation-requests",
-        element: <MyDonationRequests></MyDonationRequests>,
+        element: (
+          <DonorRoutes>
+            <MyDonationRequests></MyDonationRequests>,
+          </DonorRoutes>
+        ),
       },
       {
         path: "/dashboard/profile",
@@ -68,7 +78,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/all-users",
-        element: <Users></Users>,
+        element: (
+          <AdminRoutes>
+            <Users></Users>,
+          </AdminRoutes>
+        ),
       },
     ],
   },
