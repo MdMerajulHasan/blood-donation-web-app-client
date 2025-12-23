@@ -52,7 +52,7 @@ const Profile = () => {
     return (
       <div className="bg-base-100 w-11/12 mx-auto space-y-2 md:space-y-5 py-2 md:py-5 mt-5 md:mt-10 rounded-md">
         <h2 className="text-red-600 text-2xl md:text-4xl font-bold text-center">
-          Donor Profile
+          Profile
         </h2>
         {userData?.photo ? (
           <img
@@ -83,7 +83,7 @@ const Profile = () => {
           >
             <div className="flex flex-col w-full px-2 gap-2 justify-center">
               {/* User Name */}
-              <legend className="fieldset-legend">User Name</legend>
+              <legend className="fieldset-legend">Name</legend>
               <input
                 className="input w-full"
                 type="text"
@@ -93,14 +93,14 @@ const Profile = () => {
                 placeholder={`${userData?.name}`}
               />
               {/* User Email */}
-              <legend className="fieldset-legend">User Email</legend>
+              <legend className="fieldset-legend">Email</legend>
               <input
                 className="input w-full"
                 readOnly
                 placeholder={`${user?.email}`}
               />
               {/* User Photo */}
-              <legend className="fieldset-legend">User Photo</legend>
+              <legend className="fieldset-legend">Photo</legend>
               <input
                 className="input w-full"
                 type="url"
@@ -110,7 +110,7 @@ const Profile = () => {
                 placeholder={`${userData?.photo}`}
               />
               {/* User District */}
-              <legend className="fieldset-legend">User District</legend>
+              <legend className="fieldset-legend">District</legend>
               <input
                 className="input w-full"
                 type="text"
@@ -120,7 +120,7 @@ const Profile = () => {
                 placeholder={`${userData?.district}`}
               />
               {/* User Upazila */}
-              <legend className="fieldset-legend">User Upazila</legend>
+              <legend className="fieldset-legend">Upazila</legend>
               <input
                 className="input w-full"
                 type="text"

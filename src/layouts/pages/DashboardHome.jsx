@@ -52,7 +52,6 @@ const DashboardHome = () => {
     },
   });
 
-  console.log(role);
   const handleStatus = (status, id) => {
     axiosSecure
       .patch(`/update/${id}/progress?email=${user?.email}`, {
