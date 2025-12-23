@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useState } from "react";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Loading from "../../components/Loading";
 import { CgDetailsMore } from "react-icons/cg";
@@ -10,6 +10,7 @@ import { Link, useNavigate } from "react-router";
 
 const MyDonationRequests = () => {
   const { user } = useAuth();
+  const [status, setStatus] = useState("");
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
 
@@ -18,10 +19,10 @@ const MyDonationRequests = () => {
     data: allRequests = [],
     refetch,
   } = useQuery({
-    queryKey: ["all-own-donation-requests"],
+    queryKey: ["all-own-donation-requests", status],
     queryFn: async () => {
       const result = await axiosSecure
-        .get("/my-donation-requests")
+        .get(`/my-donation-requests?email=${user?.email}&status=${status}`)
         .catch((error) => alert(error.message));
       return result.data;
     },
@@ -53,16 +54,32 @@ const MyDonationRequests = () => {
       .catch((error) => alert(error.message));
   };
 
+  const handleFilter = (value) => {
+    setStatus(value);
+    refetch();
+  };
+
   if (allRequestsLoading) {
     return <Loading></Loading>;
   } else {
     return (
       <>
-        {allRequests.length > 0 ? (
-          <div className="bg-base-100 w-11/12 mx-auto space-y-2 md:space-y-5 py-2 md:py-5 mt-5 md:mt-10 rounded-md">
-            <h2 className="text-red-600 text-2xl md:text-4xl font-bold text-center">
-              Your All Requests
-            </h2>
+        <div className="bg-base-100 w-11/12 mx-auto space-y-2 md:space-y-5 py-2 md:py-5 mt-5 md:mt-10 rounded-md">
+          <h2 className="text-red-600 text-2xl md:text-4xl font-bold text-center">
+            Your All Requests
+          </h2>
+          <select
+            className="select"
+            value={status}
+            onChange={(e) => handleFilter(e.target.value)}
+          >
+            <option value="">Filter </option>
+            <option value="pending">Pending</option>
+            <option value="inprogress">Inprogress</option>
+            <option value="done">Done</option>
+            <option value="canceled">Cancel</option>
+          </select>
+          {allRequests.length > 0 ? (
             <div className="overflow-x-auto bg-white w-11/12 mx-auto">
               <table className="table table-zebra table-xs table-pin-rows table-pin-cols text-[10px] md:text-base text-center">
                 {/* head */}
@@ -136,9 +153,7 @@ const MyDonationRequests = () => {
                               <RiDeleteBinFill />
                             </span>
                           </button>
-                          <Link
-                            to={`/request/${r._id}`}
-                          >
+                          <Link to={`/request/${r._id}`}>
                             <span>
                               <CgDetailsMore />
                             </span>
@@ -150,14 +165,14 @@ const MyDonationRequests = () => {
                 </tbody>
               </table>
             </div>
-          </div>
-        ) : (
-          <div className="bg-base-100 w-11/12 mx-auto space-y-2 md:space-y-5 py-2 md:py-5 mt-5 md:mt-10 rounded-md">
-            <h2 className="text-red-600 text-2xl md:text-4xl font-bold text-center">
-              You Have No Request
-            </h2>
-          </div>
-        )}
+          ) : (
+            <div className="bg-base-100 w-11/12 mx-auto space-y-2 md:space-y-5 py-2 md:py-5 mt-5 md:mt-10 rounded-md">
+              <h2 className="text-red-600 text-2xl md:text-4xl font-bold text-center">
+                No Request
+              </h2>
+            </div>
+          )}
+        </div>
       </>
     );
   }

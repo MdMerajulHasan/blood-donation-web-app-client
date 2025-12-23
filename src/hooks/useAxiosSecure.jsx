@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import useAuth from "./useAuth";
 import { useNavigate } from "react-router";
 const axiosSecure = axios.create({
-  baseURL: "https://blood-donation-web-app-server-b12a1.vercel.app",
+  baseURL: "https://blood-donation-web-app-server-b12a1.vercel.app/",
 });
 const useAxiosSecure = () => {
   const { user, logoutUser } = useAuth();
