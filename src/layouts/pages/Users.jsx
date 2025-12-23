@@ -108,7 +108,7 @@ const Users = () => {
                   ) : (
                     <button
                       onClick={() => handleStatus("active", r.email)}
-                      title="Done"
+                      title="Unblock"
                       className="bg-green-600 p-1 rounded-sm text-white"
                     >
                       unblock
