@@ -18,7 +18,7 @@ const DashboardHome = () => {
 
   const { data: users = 0 } = useQuery({
     queryKey: ["users-number"],
-    enabled: !roleLoading && role === "admin",
+    enabled: !roleLoading && (role === "admin" || role === "volunteer"),
     queryFn: async () => {
       const res = await axiosSecure
         .get(`/users-number?email=${user?.email}`)
@@ -29,7 +29,7 @@ const DashboardHome = () => {
 
   const { data: requests = 0 } = useQuery({
     queryKey: ["requests-number"],
-    enabled: !roleLoading && role === "admin",
+    enabled: !roleLoading && (role === "admin" || role === "volunteer"),
     queryFn: async () => {
       const res = await axiosSecure
         .get(`/requests-number?email=${user?.email}`)
@@ -89,7 +89,7 @@ const DashboardHome = () => {
             cursor
           ></Typewriter>
         </div>
-        {my3Req.length > 0 && role === "donor" && (
+        {my3Req.length > 0 && (role === "donor" || role === "volunteer") && (
           <div className="bg-base-100 w-11/12 mx-auto space-y-2 md:space-y-5 py-2 md:py-5 mt-5 md:mt-10 rounded-md">
             <h2 className="text-red-600 text-2xl md:text-4xl font-bold text-center">
               Recent requests
@@ -181,7 +181,7 @@ const DashboardHome = () => {
             </div>
           </div>
         )}
-        {role === "admin" && (
+        {(role === "admin" || role === "volunteer") && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1 md:gap-5 text-red-600 font-bold text-center">
             <div className="bg-base-100 rounded-md p-5">
               <h2 className="text-2xl md:text-4xl">Total User</h2>

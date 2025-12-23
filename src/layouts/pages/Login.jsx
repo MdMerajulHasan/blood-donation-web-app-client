@@ -5,9 +5,10 @@ import { Link, Navigate, useLocation, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import { useForm } from "react-hook-form";
 import authImage2 from "../../assets/blood_donation_auth_image.jpeg";
+import Loading from "../../components/Loading";
 
 const Login = () => {
-  const { signInUser, setUser } = useAuth();
+  const { signInUser, setUser, loading, setLoading } = useAuth();
   const { register, handleSubmit } = useForm();
   const location = useLocation();
   const navigate = useNavigate();
@@ -15,11 +16,16 @@ const Login = () => {
   const handleLogin = (data) => {
     signInUser(data.email, data.password)
       .then((currentUser) => {
+        setLoading(false);
         setUser(currentUser.user);
         navigate(location?.state || "/");
       })
       .catch((error) => alert(error.message));
   };
+
+  if (loading) {
+    return <Loading></Loading>;
+  }
 
   return (
     <div className="flex flex-col-reverse md:flex-row gap-1 md:gap-5 justify-center items-start mt-2 md:mt-10 w-11/12 lg:w-4/5 mx-auto">
