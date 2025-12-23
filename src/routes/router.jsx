@@ -17,6 +17,8 @@ import Error404 from "../layouts/pages/Error404";
 import Users from "../layouts/pages/Users";
 import AdminRoutes from "./AdminRoutes";
 import DonorRoutes from "./DonorRoutes";
+import AllDonationRequests from "../layouts/pages/AllDonationRequests";
+import VolunteerRoutes from "./VolunteerRoutes";
 
 const router = createBrowserRouter([
   {
@@ -82,6 +84,22 @@ const router = createBrowserRouter([
           <AdminRoutes>
             <Users></Users>,
           </AdminRoutes>
+        ),
+      },
+      {
+        path: "/dashboard/all-blood-donation-request",
+        element: (
+          <AdminRoutes>
+            <AllDonationRequests></AllDonationRequests>,
+          </AdminRoutes>
+        ),
+      },
+      {
+        path: "/dashboard/all-blood-donation-request",
+        element: (
+          <VolunteerRoutes>
+            <AllDonationRequests></AllDonationRequests>,
+          </VolunteerRoutes>
         ),
       },
     ],
