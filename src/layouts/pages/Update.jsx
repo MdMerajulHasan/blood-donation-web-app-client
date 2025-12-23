@@ -25,7 +25,6 @@ const Update = () => {
   });
 
   const handleUpdate = (data) => {
-    console.log(data);
     axiosSecure
       .patch(`/update/${id}/request-data?email=${user?.email}`, data)
       .then((res) => {
