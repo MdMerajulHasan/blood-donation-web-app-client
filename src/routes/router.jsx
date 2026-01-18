@@ -26,7 +26,11 @@ const router = createBrowserRouter([
     Component: RootLayout,
     errorElement: <Error404></Error404>,
     children: [
-      { index: true, Component: Home },
+      {
+        index: true,
+        loader: () => fetch("http://localhost:3000/network-data"),
+        Component: Home,
+      },
       { path: "/search-donors", Component: SearchDonor },
       {
         path: "/donation-requests",

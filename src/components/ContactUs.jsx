@@ -4,7 +4,7 @@ import { BiPhone } from "react-icons/bi";
 const ContactUs = () => {
   return (
     <div className="bg-base-200 space-y-2 md:space-y-5 py-2 md:py-5 mt-5 md:mt-10 rounded-md">
-      <h2 className="text-red-600 text-4xl font-bold text-center">
+      <h2 className="text-red-600 text-2xl md:text-4xl font-bold text-center">
         Contact Us
       </h2>
 
@@ -74,7 +74,7 @@ const ContactUs = () => {
         </div>
         <button
           type="submit"
-          className="bg-linear-to-br mx-auto from-red-600 to-red-300 text-white lg:py-1 w-11/12 md:w-40 lg:w-52 border font-bold md:text-lg border-white rounded-md flex gap-2 justify-center items-center"
+          className="bg-linear-to-br cursor-pointer hover:opacity-50 mx-auto from-red-600 to-red-300 text-white py-1 w-11/12 md:w-40 lg:w-52 border font-bold md:text-lg border-white rounded-md flex gap-2 justify-center items-center"
         >
           Contact
         </button>

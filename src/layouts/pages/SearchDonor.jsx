@@ -107,7 +107,7 @@ const SearchDonor = () => {
           </div>
           <button
             type="submit"
-            className="bg-linear-to-br mx-auto from-red-600 to-red-300 text-white lg:py-1 w-11/12 md:w-40 lg:w-52 border font-bold md:text-lg border-white rounded-md flex gap-2 justify-center items-center"
+            className="bg-linear-to-br mx-auto from-red-600 to-red-300 cursor-pointer hover:opacity-50 text-white py-1 w-11/12 md:w-40 lg:w-52 border font-bold md:text-lg border-white rounded-md flex gap-2 justify-center items-center"
           >
             Search
           </button>

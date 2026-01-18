@@ -21,15 +21,15 @@ const Dashboard = () => {
         </span>
         <Link
           to="/dashboard"
-          className="flex items-center justify-center md:justify-start gap-0.5"
+          className="flex cursor-pointer hover:opacity-50 items-center justify-center md:justify-start gap-0.5"
           title="Home"
         >
           <FaHome size={25} />
-          <span className="hidden md:flex">Home</span>
+          <span className="hidden  md:flex">Home</span>
         </Link>
         <Link
           to="/dashboard/profile"
-          className="flex items-center justify-center md:justify-start gap-0.5"
+          className="flex cursor-pointer hover:opacity-50 items-center justify-center md:justify-start gap-0.5"
           title={`${role?.toUpperCase()} Profile`}
         >
           <FaUser size={25} />
@@ -39,7 +39,7 @@ const Dashboard = () => {
           <>
             <Link
               to="/dashboard/my-donation-requests"
-              className="flex items-center justify-center md:justify-start gap-0.5"
+              className="flex cursor-pointer hover:opacity-50 items-center justify-center md:justify-start gap-0.5"
               title="My Donation Requests"
             >
               <BiSolidDonateBlood size={25} />
@@ -47,7 +47,7 @@ const Dashboard = () => {
             </Link>
             <Link
               to="/dashboard/create-donation-request"
-              className="flex items-center justify-center md:justify-start gap-0.5"
+              className="flex cursor-pointer hover:opacity-50 items-center justify-center md:justify-start gap-0.5"
               title="Create Donation Requests"
             >
               <TbDropletPlus size={25} />
@@ -59,7 +59,7 @@ const Dashboard = () => {
           <>
             <Link
               to="/dashboard/all-users"
-              className="flex items-center justify-center md:justify-start gap-0.5"
+              className="flex cursor-pointer hover:opacity-50 items-center justify-center md:justify-start gap-0.5"
               title="All Users"
             >
               <FaUsers size={25} />
@@ -67,7 +67,7 @@ const Dashboard = () => {
             </Link>
             <Link
               to="/dashboard/all-blood-donation-request"
-              className="flex items-center justify-center md:justify-start gap-0.5"
+              className="flex cursor-pointer hover:opacity-50 items-center justify-center md:justify-start gap-0.5"
               title="All Requests"
             >
               <BiSolidDonateBlood size={25} />
@@ -79,7 +79,7 @@ const Dashboard = () => {
           <>
             <Link
               to="/dashboard/all-blood-donation-request"
-              className="flex items-center justify-center md:justify-start gap-0.5"
+              className="flex cursor-pointer hover:opacity-50 items-center justify-center md:justify-start gap-0.5"
               title="All Requests"
             >
               <BiSolidDonateBlood size={25} />

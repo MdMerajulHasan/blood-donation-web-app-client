@@ -14,13 +14,17 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleLogin = (data) => {
+    setLoading(true);
     signInUser(data.email, data.password)
       .then((currentUser) => {
-        setLoading(false);
         setUser(currentUser.user);
         navigate(location?.state || "/");
+        setLoading(false);
       })
-      .catch((error) => alert(error.message));
+      .catch((error) => {
+        setLoading(false);
+        alert(error.message);
+      });
   };
 
   if (loading) {
@@ -70,7 +74,7 @@ const Login = () => {
           </p>
           <button
             onClick={handleSubmit(handleLogin)}
-            className="bg-violet-500 text-base md:text-xl font-bold text-white py-1 md:py-2 w-full text-center rounded-md"
+            className="bg-violet-500 cursor-pointer hover:opacity-50 text-base md:text-xl font-bold text-white py-1 md:py-2 w-full text-center rounded-md"
           >
             Login
           </button>

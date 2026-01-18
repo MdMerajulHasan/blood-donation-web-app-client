@@ -13,14 +13,14 @@ const Navbar = () => {
     <>
       <NavLink
         to="/donation-requests"
-        className="text-white lg:py-1 lg:w-52 border font-bold md:text-lg border-white rounded-md text-center"
+        className="text-white cursor-pointer hover:opacity-50 lg:py-1 lg:w-52 border font-bold md:text-lg border-white rounded-md text-center"
       >
         Donation Requests
       </NavLink>
       {user && (
         <NavLink
           to="/donate"
-          className="text-white lg:py-1 lg:w-52 border font-bold md:text-lg border-white rounded-md flex gap-2 justify-center items-center"
+          className="text-white cursor-pointer hover:opacity-50 lg:py-1 lg:w-52 border font-bold md:text-lg border-white rounded-md flex gap-2 justify-center items-center"
         >
           Donate Us <GiPayMoney className="lg:h-8 lg:w-8" />
         </NavLink>
@@ -70,12 +70,12 @@ const Navbar = () => {
             <div tabIndex={0} role="button" className="text-white">
               {user.photoURL ? (
                 <img
-                  className=" w-8 md:w-15 h-8 md:h-15 rounded-full"
+                  className="cursor-pointer hover:opacity-50 w-8 md:w-15 h-8 md:h-15 rounded-full"
                   src={user.photoURL}
                   alt="user image"
                 />
               ) : (
-                <BiUserCircle className="w-8 md:w-15 h-8 md:h-15"></BiUserCircle>
+                <BiUserCircle className="w-8 md:w-15 h-8 md:h-15 cursor-pointer hover:opacity-50"></BiUserCircle>
               )}
             </div>
             <ul
@@ -84,13 +84,13 @@ const Navbar = () => {
             >
               <Link
                 to="/dashboard"
-                className="text-white lg:py-1 lg:mx-auto lg:w-52 border font-bold md:text-lg border-white rounded-md text-center"
+                className="text-white cursor-pointer hover:opacity-50 lg:py-1 lg:mx-auto lg:w-52 border font-bold md:text-lg border-white rounded-md text-center"
               >
                 Dashboard
               </Link>
               <Link
                 onClick={logoutUser}
-                className="text-white lg:mx-auto lg:py-1 lg:w-52 border font-bold md:text-lg border-white rounded-md text-center"
+                className="text-white cursor-pointer hover:opacity-50 lg:mx-auto lg:py-1 lg:w-52 border font-bold md:text-lg border-white rounded-md text-center"
               >
                 Logout
               </Link>
@@ -99,7 +99,7 @@ const Navbar = () => {
         ) : (
           <NavLink
             to="/login"
-            className="text-white py-1 w-30 md:w-40 lg:w-52 bg-transparent border font-bold text-base md:text-lg border-white rounded-md text-center"
+            className="text-white cursor-pointer hover:opacity-50 py-1 w-30 md:w-40 lg:w-52 bg-transparent border font-bold text-base md:text-lg border-white rounded-md text-center"
           >
             Login
           </NavLink>

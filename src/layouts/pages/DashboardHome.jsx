@@ -82,7 +82,7 @@ const DashboardHome = () => {
   } else {
     return (
       <div>
-        <div className="text-red-600 md:text-4xl font-bold text-center my-5 md:my-10">
+        <div className="text-red-600 space-y-5 md:text-4xl font-bold text-center my-5 md:my-10">
           <Typewriter
             words={[`Welcome ${user.displayName}`]}
             loop
@@ -182,7 +182,7 @@ const DashboardHome = () => {
           </div>
         )}
         {(role === "admin" || role === "volunteer") && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1 md:gap-5 text-red-600 font-bold text-center">
+          <div className="grid grid-cols-1 my-2 md:my-5 md:grid-cols-2 lg:grid-cols-3 gap-1 md:gap-5 text-red-600 font-bold text-center">
             <div className="bg-base-100 rounded-md p-5">
               <h2 className="text-2xl md:text-4xl">Total User</h2>
               <p className="text-xl md:text-2xl">{users}</p>

@@ -8,8 +8,11 @@ import useAuth from "../../hooks/useAuth";
 import axios from "axios";
 import useAxios from "../../hooks/useAxios";
 import authImage from "../../assets/blood_donation_auth_image.jpeg";
+import { AuthContext } from "../../contexts/AuthContext";
+import Loading from "../../components/Loading";
 
 const Register = () => {
+  const { loading, setLoading } = useAuth();
   // getting registration function from firebase
   const { registerUser, setUser, updateUser } = useAuth();
   const [districts, setDistricts] = useState([]);
@@ -64,6 +67,7 @@ const Register = () => {
       data;
 
     try {
+      setLoading(true);
       // getting the image data from form
       const profileImage = photo?.[0];
 
@@ -107,6 +111,7 @@ const Register = () => {
           }
         })
         .catch((error) => {
+          setLoading(false);
           alert(error.message);
         });
       // using function to update user in firebase
@@ -114,13 +119,21 @@ const Register = () => {
         .then(() => {
           setUser(currentUser.user);
           navigate(location.state || "/");
+          setLoading(false);
         })
-        .catch((error) => alert(error.message));
+        .catch((error) => {
+          setLoading(false);
+          alert(error.message);
+        });
     } catch (error) {
+      setLoading(false);
       alert(error.message);
     }
   };
 
+  if (loading) {
+    return <Loading></Loading>;
+  }
   return (
     <div className="flex flex-col-reverse md:flex-row gap-1 md:gap-5 justify-center items-start mt-2 md:mt-10 w-11/12 lg:w-4/5 mx-auto">
       <div className="w-11/12 mx-auto md:w-1/2">
@@ -275,7 +288,7 @@ const Register = () => {
           </div>
           <button
             type="submit"
-            className="bg-violet-500 text-base md:text-xl font-bold text-white my-1 md:py-2 w-full text-center rounded-md"
+            className="bg-violet-500 cursor-pointer hover:opacity-50 text-base md:text-xl font-bold text-white my-1 md:py-2 w-full text-center rounded-md"
           >
             Register
           </button>
