@@ -14,8 +14,8 @@ const Footer = () => {
         backgroundImage: `url(${footerBg})`,
       }}
     >
-      <div className="flex w-full gap-5 flex-col-reverse md:flex-row md:justify-around">
-        <div className="w-full">
+      <div className="flex gap-5 flex-col-reverse md:flex-row md:justify-around">
+        <div>
           <h5 className="text-sm md:text-xl">Useful Links</h5>
           <ul className="space-y-1 flex flex-col text-xs md:text-sm">
             <Link to="/">
@@ -47,9 +47,9 @@ const Footer = () => {
             <li>Location: Gabtoli, Dhaka, Bangladesh.</li>
           </ul>
         </div>
-        <div className="w-full">
+        <div>
           <h5 className="text-sm md:text-xl">Find Us On</h5>
-          <div className="flex text-xs md:text-sm flex-col gap-1 md:flex-row md:gap-2 md:items-center">
+          <div className="flex text-xs md:text-sm flex-col gap-1 md:gap-2 md:items-center">
             <Link target="_blank" to="https://www.facebook.com/jim.merajul.1/">
               <FaFacebook size={20}></FaFacebook>
             </Link>
@@ -64,7 +64,6 @@ const Footer = () => {
             </Link>
           </div>
         </div>
-        <Logo></Logo>
       </div>
       <div className="border-b border-white w-full md:w-11/12 mx-auto my-2"></div>
       <p className="text-xs text-center">&copy;2025 Red Help</p>
