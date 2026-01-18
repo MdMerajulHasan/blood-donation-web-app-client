@@ -63,11 +63,11 @@ const Navbar = () => {
           <div
             tabIndex={0}
             role="button"
-            className="btn btn-ghost lg:hidden text-white ml-0 pl-0"
+            className="btn btn-ghost lg:hidden text-white m-0 p-0"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="w-8 md:w-12 h-8 md:h-12"
+              className="w-8 md:w-12 h-8 md:h-12 md:mr-1"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
