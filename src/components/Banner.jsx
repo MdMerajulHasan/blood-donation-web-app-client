@@ -5,7 +5,7 @@ import { Link } from "react-router";
 
 const Banner = () => {
   return (
-    <div className="bg-base-200 md:w-2/3 lg:w-1/2 mx-auto space-y-2 md:space-y-5 py-2 md:py-5 mt-5 md:mt-10 rounded-md">
+    <div className="bg-base-200 h-[60vh] md:w-2/3 lg:w-1/2 mx-auto space-y-2 md:space-y-5 py-2 md:py-5 mt-5 md:mt-10 rounded-md">
       <div className="text-red-600 text-2xl md:text-4xl font-bold text-center">
         <Typewriter
           words={["Donate Blood", "Save Lives", "Be A Hero"]}
@@ -14,7 +14,7 @@ const Banner = () => {
         ></Typewriter>
       </div>
       <img
-        className="w-11/12 md:w-auto mx-auto rounded-md"
+        className="w-auto md:w-auto mx-auto rounded-md"
         src={bannerPhoto}
         alt="banner photo"
       />
