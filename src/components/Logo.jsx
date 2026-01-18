@@ -6,7 +6,7 @@ const Logo = () => {
   return (
     <Link title="Red Help" className="text-white font-bold" to="/">
       <img
-        className="bg-white rounded-full p-0.5 w-8 md:w-15 h-8 md:h-15"
+        className="bg-white rounded-full p-0.5 w-8 md:w-12 h-8 md:h-12"
         src={logo}
         alt="logo image"
       />

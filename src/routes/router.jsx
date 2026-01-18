@@ -19,6 +19,7 @@ import AdminRoutes from "./AdminRoutes";
 import DonorRoutes from "./DonorRoutes";
 import AllDonationRequests from "../layouts/pages/AllDonationRequests";
 import VolunteerRoutes from "./VolunteerRoutes";
+import About from "../layouts/pages/About";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,8 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      { path: "/about", element: <About></About> },
+      { path: "/faq", element: <About></About> },
     ],
   },
   { path: "/login", Component: Login },
