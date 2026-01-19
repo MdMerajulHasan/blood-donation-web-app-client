@@ -9,7 +9,7 @@ const WhoSouldNotDonate = () => {
     <div className="bg-base-200 md:px-2 text-red-600 text-center space-y-2 md:space-y-5 py-2 md:py-5 mt-5 md:mt-10 rounded-md">
       <h2 className="text-2xl md:text-4xl font-bold">Who Should Not Donate?</h2>
       <div className="grid w-11/12 md:w-full mx-auto grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-5">
-        <div className="space-y-1 bg-base-300 py-2 rounded-md">
+        <div className="space-y-1 bg-base-300 px-1 py-2 rounded-md">
           <h3 className="text-2xl font-bold">Fever or Infection</h3>
           <img
             className="h-64 w-11/12 mx-auto rounded-md"
@@ -21,7 +21,7 @@ const WhoSouldNotDonate = () => {
             until fully recovered before donating blood.
           </p>
         </div>
-        <div className="space-y-1 bg-base-300 py-2 rounded-md">
+        <div className="space-y-1 bg-base-300 px-1 py-2 rounded-md">
           <h3 className="text-2xl font-bold">Pregnancy & Childbirth</h3>
           <img
             className="h-64 w-11/12 mx-auto rounded-md"
@@ -33,7 +33,7 @@ const WhoSouldNotDonate = () => {
             donate until it is medically safe to do so.
           </p>
         </div>
-        <div className="space-y-1 bg-base-300 py-2 rounded-md">
+        <div className="space-y-1 bg-base-300 px-1 py-2 rounded-md">
           <h3 className="text-2xl font-bold">Recent Surgery</h3>
           <img
             className="h-64 w-11/12 mx-auto rounded-md"
@@ -45,7 +45,7 @@ const WhoSouldNotDonate = () => {
             medical treatment should wait as advised by a doctor.
           </p>
         </div>
-        <div className="space-y-1 bg-base-300 py-2 rounded-md">
+        <div className="space-y-1 bg-base-300 px-1 py-2 rounded-md">
           <h3 className="text-2xl font-bold">Medications</h3>
           <img
             className="h-64 w-11/12 mx-auto rounded-md"

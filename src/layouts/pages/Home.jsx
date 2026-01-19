@@ -26,7 +26,9 @@ const Home = () => {
         <HowCreateRequest></HowCreateRequest>
         <WhoEligibleToDonate></WhoEligibleToDonate>
         <WhoSouldNotDonate></WhoSouldNotDonate>
+        </div>
         <ContactUs></ContactUs>
+        <div className="w-11/12 mx-auto">
         <AboutSection></AboutSection>
         <PrivacyAndPolicy></PrivacyAndPolicy>
         <Faq></Faq>

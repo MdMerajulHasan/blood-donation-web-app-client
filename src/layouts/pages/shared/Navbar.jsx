@@ -48,6 +48,18 @@ const Navbar = () => {
         About
       </NavLink>
       <NavLink
+        to="/help"
+        className="text-white cursor-pointer hover:opacity-50 lg:py-1 border font-bold md:text-lg border-white lg:border-none rounded-md text-center"
+      >
+        Help
+      </NavLink>
+      <NavLink
+        to="/contact"
+        className="text-white cursor-pointer hover:opacity-50 lg:py-1 border font-bold md:text-lg border-white lg:border-none rounded-md text-center"
+      >
+        Contact
+      </NavLink>
+      <NavLink
         to="/faq"
         className="text-white cursor-pointer hover:opacity-50 lg:py-1 border font-bold md:text-lg border-white lg:border-none rounded-md text-center"
       >

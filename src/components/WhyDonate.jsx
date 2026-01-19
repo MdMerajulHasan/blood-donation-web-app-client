@@ -9,7 +9,7 @@ const WhyDonate = () => {
     <div className="bg-base-200 md:px-2 text-red-600 text-center space-y-2 md:space-y-5 py-2 md:py-5 mt-5 md:mt-10 rounded-md">
       <h2 className="text-2xl md:text-4xl font-bold">Why Donate Blood?</h2>
       <div className="grid w-11/12 md:w-full mx-auto grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-5">
-        <div className="space-y-1 bg-base-300 py-2 rounded-md">
+        <div className="space-y-1 bg-base-300 px-1 py-2 rounded-md">
           <h3 className="text-2xl font-bold">Save Lives</h3>
           <p className="font-semibold">One donation saves up to three lives.</p>
           <img
@@ -18,7 +18,7 @@ const WhyDonate = () => {
             alt="one donate save 3 lives photo"
           />
         </div>
-        <div className="space-y-1 bg-base-300 py-2 rounded-md">
+        <div className="space-y-1 bg-base-300 px-1 py-2 rounded-md">
           <h3 className="text-2xl font-bold">Quick Process</h3>
           <p className="font-semibold">Simple and takes only a few minutes.</p>
           <img
@@ -27,7 +27,7 @@ const WhyDonate = () => {
             alt="one donate save 3 lives photo"
           />
         </div>
-        <div className="space-y-1 bg-base-300 py-2 rounded-md">
+        <div className="space-y-1 bg-base-300 px-1 py-2 rounded-md">
           <h3 className="text-2xl font-bold">Free Health Check</h3>
           <p className="font-semibold">Basic health screening.</p>
           <img
@@ -36,7 +36,7 @@ const WhyDonate = () => {
             alt="one donate save 3 lives photo"
           />
         </div>
-        <div className="space-y-1 bg-base-300 py-2 rounded-md">
+        <div className="space-y-1 bg-base-300 px-1 py-2 rounded-md">
           <h3 className="text-2xl font-bold">Community Impact</h3>
           <p className="font-semibold">It strengthens communities.</p>
           <img

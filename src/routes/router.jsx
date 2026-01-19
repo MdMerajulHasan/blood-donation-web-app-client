@@ -20,6 +20,9 @@ import DonorRoutes from "./DonorRoutes";
 import AllDonationRequests from "../layouts/pages/AllDonationRequests";
 import VolunteerRoutes from "./VolunteerRoutes";
 import About from "../layouts/pages/About";
+import FAQ from "../layouts/pages/FAQ";
+import Help from "../layouts/pages/Help";
+import ContactUs from "../components/ContactUs";
 
 const router = createBrowserRouter([
   {
@@ -29,7 +32,10 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        loader: () => fetch("http://localhost:3000/network-data"),
+        loader: () =>
+          fetch(
+            "https://blood-donation-web-app-server-b12a1.vercel.app/network-data",
+          ),
         Component: Home,
       },
       { path: "/search-donors", Component: SearchDonor },
@@ -46,7 +52,9 @@ const router = createBrowserRouter([
         ),
       },
       { path: "/about", element: <About></About> },
-      { path: "/faq", element: <About></About> },
+      { path: "/faq", element: <FAQ></FAQ> },
+      { path: "/help", element: <Help></Help> },
+      { path: "/contact", element: <ContactUs></ContactUs> },
     ],
   },
   { path: "/login", Component: Login },

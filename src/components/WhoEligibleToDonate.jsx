@@ -11,7 +11,7 @@ const WhoEligibleToDonate = () => {
         Who Can Donate Blood?
       </h2>
       <div className="grid w-11/12 md:w-full mx-auto grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-5">
-        <div className="space-y-1 bg-base-300 py-2 rounded-md">
+        <div className="space-y-1 bg-base-300 px-1 py-2 rounded-md">
           <h3 className="text-2xl font-bold">Age & Weight</h3>
           <img
             className="h-64 w-11/12 mx-auto rounded-md"
@@ -23,7 +23,7 @@ const WhoEligibleToDonate = () => {
             to safely donate blood.
           </p>
         </div>
-        <div className="space-y-1 bg-base-300 py-2 rounded-md">
+        <div className="space-y-1 bg-base-300 px-1 py-2 rounded-md">
           <h3 className="text-2xl font-bold">Good Health</h3>
           <img
             className="h-64 w-11/12 mx-auto rounded-md"
@@ -35,7 +35,7 @@ const WhoEligibleToDonate = () => {
             serious illnesses at the time of donation.
           </p>
         </div>
-        <div className="space-y-1 bg-base-300 py-2 rounded-md">
+        <div className="space-y-1 bg-base-300 px-1 py-2 rounded-md">
           <h3 className="text-2xl font-bold">Hemoglobin Level</h3>
           <img
             className="h-64 w-11/12 mx-auto rounded-md"
@@ -47,7 +47,7 @@ const WhoEligibleToDonate = () => {
             for both donor and recipient.
           </p>
         </div>
-        <div className="space-y-1 bg-base-300 py-2 rounded-md">
+        <div className="space-y-1 bg-base-300 px-1 py-2 rounded-md">
           <h3 className="text-2xl font-bold">Donation Interval</h3>
           <img
             className="h-64 w-11/12 mx-auto rounded-md"

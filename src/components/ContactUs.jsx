@@ -1,14 +1,24 @@
 import React from "react";
 import { BiPhone } from "react-icons/bi";
+import Swal from "sweetalert2";
 
 const ContactUs = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    Swal.fire({
+      title: "Message Sent Successfully!",
+      icon: "success",
+      draggable: true,
+    });
+    e.target.reset();
+  };
   return (
-    <div className="bg-base-200 space-y-2 md:space-y-5 py-2 md:py-5 mt-5 md:mt-10 rounded-md">
+    <div className="bg-base-200 w-11/12 mx-auto space-y-2 md:space-y-5 py-2 md:py-5 mt-5 md:mt-10 rounded-md">
       <h2 className="text-red-600 text-2xl md:text-4xl font-bold text-center">
         Contact Us
       </h2>
 
-      <form className="space-y-2 md:space-y-5">
+      <form onSubmit={handleSubmit} className="space-y-2 md:space-y-5">
         <div className="flex flex-col md:px-2 md:flex-row gap-2 md:gap-5 justify-center items-center">
           <div className="w-11/12 md:w-1/2">
             <legend className="fieldset-legend">Name*</legend>
