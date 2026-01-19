@@ -8,8 +8,10 @@ import authImage2 from "../../assets/blood_donation_auth_image.jpeg";
 import Loading from "../../components/Loading";
 import Swal from "sweetalert2";
 import { BsGoogle } from "react-icons/bs";
+import useAxios from "../../hooks/useAxios";
 
 const Login = () => {
+  const axiosInstance = useAxios();
   const { signInUser, setUser, loading, setLoading, signInWithGoogle } =
     useAuth();
   const { register, handleSubmit, setValue } = useForm();
@@ -26,6 +28,27 @@ const Login = () => {
   const handleGoogleLogin = () => {
     signInWithGoogle()
       .then((result) => {
+        const userInfo = {
+          name: result.user.displayName,
+          email: result.user.email,
+          photo: result.user.photoURL,
+          bloodGroup: "",
+          district: "",
+          upazila: "",
+        };
+        console.log(userInfo);
+        // saving data to database
+        axiosInstance
+          .post("/users", userInfo)
+          .then((res) => {
+            if (res.data.insertedId) {
+              alert("User Registered Successfully!");
+            }
+          })
+          .catch((error) => {
+            setLoading(false);
+            alert(error.message);
+          });
         navigate(location?.state || "/");
         setUser(result.user);
       })
