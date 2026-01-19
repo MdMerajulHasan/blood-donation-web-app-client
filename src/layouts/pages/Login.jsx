@@ -6,9 +6,12 @@ import useAuth from "../../hooks/useAuth";
 import { useForm } from "react-hook-form";
 import authImage2 from "../../assets/blood_donation_auth_image.jpeg";
 import Loading from "../../components/Loading";
+import Swal from "sweetalert2";
+import { BsGoogle } from "react-icons/bs";
 
 const Login = () => {
-  const { signInUser, setUser, loading, setLoading } = useAuth();
+  const { signInUser, setUser, loading, setLoading, signInWithGoogle } =
+    useAuth();
   const { register, handleSubmit, setValue } = useForm();
   const location = useLocation();
   const navigate = useNavigate();
@@ -19,6 +22,22 @@ const Login = () => {
     setValue("email", demoEmail);
     setValue("password", demoPassword);
   };
+
+  const handleGoogleLogin = () => {
+    signInWithGoogle()
+      .then((result) => {
+        navigate(location?.state || "/");
+        setUser(result.user);
+      })
+      .catch((err) =>
+        Swal.fire({
+          title: "Google Login Failed!",
+          text: err.message,
+          icon: "error",
+        }),
+      );
+  };
+
   const handleLogin = (data) => {
     setLoading(true);
     signInUser(data.email, data.password)
@@ -91,6 +110,12 @@ const Login = () => {
             Demo Login
           </button>
         </form>
+        <button
+          onClick={handleGoogleLogin}
+          className="bg-red-500 my-1 md:my-5 flex gap-1 items-center justify-center cursor-pointer hover:opacity-50 text-base md:text-xl font-bold text-white py-1 md:py-2 w-full text-center rounded-md"
+        >
+          Login with Google <BsGoogle></BsGoogle>
+        </button>
         <p className="my-1 text-[14px] md:text-base md:my-5 text-center">
           Haven't Any Account?
           <Link
