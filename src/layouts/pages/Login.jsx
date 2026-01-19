@@ -9,10 +9,16 @@ import Loading from "../../components/Loading";
 
 const Login = () => {
   const { signInUser, setUser, loading, setLoading } = useAuth();
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, setValue } = useForm();
   const location = useLocation();
   const navigate = useNavigate();
-
+  const handleDemoLogin = (e) => {
+    e.preventDefault();
+    const demoEmail = "demoemail@redhelp.com";
+    const demoPassword = "Demo123!@";
+    setValue("email", demoEmail);
+    setValue("password", demoPassword);
+  };
   const handleLogin = (data) => {
     setLoading(true);
     signInUser(data.email, data.password)
@@ -77,6 +83,12 @@ const Login = () => {
             className="bg-violet-500 cursor-pointer hover:opacity-50 text-base md:text-xl font-bold text-white py-1 md:py-2 w-full text-center rounded-md"
           >
             Login
+          </button>
+          <button
+            onClick={handleDemoLogin}
+            className="bg-green-500 cursor-pointer hover:opacity-50 text-base md:text-xl font-bold text-white py-1 md:py-2 w-full text-center rounded-md"
+          >
+            Demo Login
           </button>
         </form>
         <p className="my-1 text-[14px] md:text-base md:my-5 text-center">
