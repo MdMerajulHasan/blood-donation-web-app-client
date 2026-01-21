@@ -36,13 +36,14 @@ const Login = () => {
           district: "",
           upazila: "",
         };
-        console.log(userInfo);
         // saving data to database
         axiosInstance
           .post("/users", userInfo)
           .then((res) => {
             if (res.data.insertedId) {
               alert("User Registered Successfully!");
+            } else {
+              alert(res.data.alreadyUser);
             }
           })
           .catch((error) => {
