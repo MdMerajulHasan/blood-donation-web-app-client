@@ -40,9 +40,11 @@ const Login = () => {
         axiosInstance
           .post("/users", userInfo)
           .then((res) => {
+            console.log(res.data.insertedId);
             if (res.data.insertedId) {
               alert("User Registered Successfully!");
-            } else {
+            }
+            if (res.data.alreadyUser) {
               alert(res.data.alreadyUser);
             }
           })
