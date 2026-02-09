@@ -17,14 +17,32 @@ const Login = () => {
   const { register, handleSubmit, setValue } = useForm();
   const location = useLocation();
   const navigate = useNavigate();
-  const handleDemoLogin = (e) => {
+  // handle demo donor login
+  const handleDemoDonorLogin = (e) => {
     e.preventDefault();
     const demoEmail = "demoemail@redhelp.com";
     const demoPassword = "Demo123!@";
     setValue("email", demoEmail);
     setValue("password", demoPassword);
   };
+  // handle demo volunteer login
+  const handleDemoVolunteerLogin = (e) => {
+    e.preventDefault();
+    const demoEmail = "meraj@gmail.com";
+    const demoPassword = "Jim123!@";
+    setValue("email", demoEmail);
+    setValue("password", demoPassword);
+  };
+  // handle demo admin login
+  const handleDemoAdminLogin = (e) => {
+    e.preventDefault();
+    const demoEmail = "merajuljim1971@gmail.com";
+    const demoPassword = "Jim123!@";
+    setValue("email", demoEmail);
+    setValue("password", demoPassword);
+  };
 
+  // handle google login
   const handleGoogleLogin = () => {
     signInWithGoogle()
       .then((result) => {
@@ -42,15 +60,27 @@ const Login = () => {
           .then((res) => {
             console.log(res.data.insertedId);
             if (res.data.insertedId) {
-              alert("User Registered Successfully!");
+              Swal.fire({
+                title: "User Added",
+                text: "User Registered Successfully!",
+                icon: "success",
+              });
             }
             if (res.data.alreadyUser) {
-              alert(res.data.alreadyUser);
+              Swal.fire({
+                title: "User Already Exist!",
+                text: res.data.alreadyUser,
+                icon: "info",
+              });
             }
           })
           .catch((error) => {
             setLoading(false);
-            alert(error.message);
+            Swal.fire({
+              title: "User Adding Failed!",
+              text: error.message,
+              icon: "error",
+            });
           });
         navigate(location?.state || "/");
         setUser(result.user);
@@ -74,7 +104,11 @@ const Login = () => {
       })
       .catch((error) => {
         setLoading(false);
-        alert(error.message);
+        Swal.fire({
+          title: "Login Failed",
+          text: error.message,
+          icon: "error",
+        });
       });
   };
 
@@ -130,10 +164,22 @@ const Login = () => {
             Login
           </button>
           <button
-            onClick={handleDemoLogin}
+            onClick={handleDemoDonorLogin}
             className="bg-green-500 cursor-pointer hover:opacity-50 text-base md:text-xl font-bold text-white py-1 md:py-2 w-full text-center rounded-md"
           >
-            Demo Login
+            Demo Donor Login
+          </button>
+          <button
+            onClick={handleDemoVolunteerLogin}
+            className="bg-green-500 cursor-pointer hover:opacity-50 text-base md:text-xl font-bold text-white py-1 md:py-2 w-full text-center rounded-md"
+          >
+            Demo Volunteer Login
+          </button>
+          <button
+            onClick={handleDemoAdminLogin}
+            className="bg-green-500 cursor-pointer hover:opacity-50 text-base md:text-xl font-bold text-white py-1 md:py-2 w-full text-center rounded-md"
+          >
+            Demo Admin Login
           </button>
         </form>
         <button
